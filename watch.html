@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Watch movies and TV shows on PrimeNet.">
+  <title>Watch — PrimeNet</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>▶️</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Watch page backdrop header */
+    .player-page-hero {
+      position: relative;
+      width: 100%;
+      height: 260px;
+      background: #000;
+      overflow: hidden;
+      display: none;
+    }
+    .player-page-hero-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.3) blur(2px);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar scrolled" id="navbar">
+    <a href="index.html" class="navbar-brand">
+      <span class="navbar-logo">Prime<span>Net</span></span>
+    </a>
+    <div class="navbar-nav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="movies.html" class="nav-link">Movies</a>
+      <a href="tv.html" class="nav-link">TV Shows</a>
+      <a href="search.html" class="nav-link">Search</a>
+    </div>
+    <div class="navbar-right">
+      <a href="javascript:history.back()" class="btn-icon" aria-label="Go back" title="Back">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </a>
+      <div class="search-container">
+        <button class="search-toggle" id="searchToggle" aria-label="Search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+        <div class="search-box" id="searchBox">
+          <input type="text" class="search-input" id="navSearchInput" placeholder="Search movies, shows..." autocomplete="off">
+          <button class="search-btn" id="navSearchBtn" aria-label="Search">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== WATCH PAGE ===== -->
+  <div class="watch-page">
+
+    <!-- Player -->
+    <div class="player-container">
+      <div class="player-frame-wrap">
+        <div class="player-loading" id="playerLoading">
+          <div class="spinner"></div>
+          <span class="spinner-text" id="playerLoadingText">Loading player…</span>
+        </div>
+        <iframe
+          id="playerFrame"
+          class="player-frame"
+          src="about:blank"
+          allowfullscreen
+          allow="autoplay; fullscreen; picture-in-picture"
+          referrerpolicy="no-referrer"
+          title="Video Player"
+        ></iframe>
+      </div>
+    </div>
+
+    <!-- Player Info -->
+    <div class="player-info">
+      <div class="player-title-row">
+        <h1 class="player-title" id="playerTitle">Loading…</h1>
+      </div>
+      <div class="player-meta" id="playerMeta"></div>
+      <p class="player-overview" id="playerOverview"></p>
+    </div>
+
+    <!-- Episode Selector (TV Only) -->
+    <div class="episode-section hidden" id="episodeSection">
+      <div class="episode-section-header">
+        <h3 class="episode-section-title">Episodes</h3>
+        <select class="season-select" id="seasonSelect" aria-label="Select season"></select>
+      </div>
+      <div class="episode-grid" id="episodeGrid"></div>
+    </div>
+
+    <!-- Related Content -->
+    <div class="related-section">
+      <h3 class="related-title">More Like This</h3>
+      <div class="related-grid" id="relatedGrid"></div>
+    </div>
+
+  </div>
+
+  <!-- ===== MODAL ===== -->
+  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true">
+    <div class="modal">
+      <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+      <div class="modal-backdrop">
+        <img id="modalBackdropImg" src="" alt="">
+      </div>
+      <div class="modal-content">
+        <h2 class="modal-title" id="modalTitle"></h2>
+        <div class="modal-meta" id="modalMeta"></div>
+        <p class="modal-overview" id="modalOverview"></p>
+        <div class="modal-actions">
+          <button class="btn-primary" id="modalWatchBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Watch Now
+          </button>
+        </div>
+        <div class="modal-info-grid" id="modalInfoGrid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/watch.js"></script>
+</body>
+</html>
