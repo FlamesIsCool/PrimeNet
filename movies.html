@@ -6,6 +6,12 @@
   <meta name="description" content="Browse all movies on PrimeNet — Action, Drama, Comedy, Sci-Fi and more.">
   <title>Movies — PrimeNet</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎬</text></svg>">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0F171E">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="PrimeNet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body data-page="movies">
@@ -22,6 +28,10 @@
       <a href="search.html" class="nav-link">Search</a>
     </div>
     <div class="navbar-right">
+      <button class="pwa-install-btn" id="pwaInstallBtn" aria-label="Install App" title="Install PrimeNet App" style="display:none">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Install App
+      </button>
       <div class="search-container">
         <button class="search-toggle" id="searchToggle" aria-label="Search">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -80,23 +90,38 @@
   </footer>
 
   <!-- ===== MODAL ===== -->
-  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true">
+  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal">
-      <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
-      <div class="modal-backdrop">
-        <img id="modalBackdropImg" src="" alt="">
-      </div>
-      <div class="modal-content">
-        <h2 class="modal-title" id="modalTitle"></h2>
-        <div class="modal-meta" id="modalMeta"></div>
-        <p class="modal-overview" id="modalOverview"></p>
-        <div class="modal-actions">
-          <button class="btn-primary" id="modalWatchBtn">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-            Watch Now
-          </button>
+      <button class="modal-close" id="modalClose" aria-label="Close">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <div class="modal-hero" id="modalHero">
+        <img class="modal-hero-img" id="modalBackdropImg" src="" alt="">
+        <div class="modal-hero-overlay"></div>
+        <div class="modal-hero-content">
+          <div class="modal-badge" id="modalBadge"></div>
+          <h2 class="modal-title" id="modalTitle"></h2>
+          <div class="modal-meta" id="modalMeta"></div>
+          <div class="modal-actions">
+            <button class="btn-primary modal-watch-btn" id="modalWatchBtn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              Watch Now
+            </button>
+            <button class="btn-secondary modal-trailer-btn hidden" id="modalTrailerBtn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+              Trailer
+            </button>
+          </div>
         </div>
-        <div class="modal-info-grid" id="modalInfoGrid"></div>
+      </div>
+      <div class="modal-body">
+        <div class="modal-body-left">
+          <img class="modal-poster" id="modalPosterImg" src="" alt="">
+        </div>
+        <div class="modal-body-right">
+          <p class="modal-overview" id="modalOverview"></p>
+          <div class="modal-info-grid" id="modalInfoGrid"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -110,5 +135,6 @@
   <script src="js/api.js"></script>
   <script src="js/ui.js"></script>
   <script src="js/browse.js"></script>
+  <script src="js/pwa.js"></script>
 </body>
 </html>
