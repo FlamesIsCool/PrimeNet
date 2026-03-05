@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Search for movies and TV shows on PrimeNet.">
+  <title>Search — PrimeNet</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔍</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar scrolled" id="navbar">
+    <a href="index.html" class="navbar-brand">
+      <span class="navbar-logo">Prime<span>Net</span></span>
+    </a>
+    <div class="navbar-nav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="movies.html" class="nav-link">Movies</a>
+      <a href="tv.html" class="nav-link">TV Shows</a>
+      <a href="search.html" class="nav-link active">Search</a>
+    </div>
+    <div class="navbar-right">
+      <div class="search-container">
+        <button class="search-toggle" id="searchToggle" aria-label="Search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+        <div class="search-box" id="searchBox">
+          <input type="text" class="search-input" id="navSearchInput" placeholder="Search movies, shows..." autocomplete="off">
+          <button class="search-btn" id="navSearchBtn" aria-label="Search">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== SEARCH PAGE ===== -->
+  <div class="search-page">
+
+    <!-- Search Hero -->
+    <div class="search-hero">
+      <h1 class="search-hero-title">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:middle;margin-right:8px"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        Search
+      </h1>
+      <form class="search-bar-large" id="searchForm" role="search">
+        <input
+          type="search"
+          class="search-input-large"
+          id="mainSearchInput"
+          placeholder="Search for a movie or TV show…"
+          autocomplete="off"
+          autofocus
+        >
+        <button type="submit" class="search-submit" aria-label="Search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+      </form>
+    </div>
+
+    <!-- Results Count -->
+    <p class="search-results-count" id="resultsCount"></p>
+
+    <!-- Tabs -->
+    <div class="tabs" id="resultsTabs">
+      <button class="tab-btn active" data-panel="allResultsPanel" id="tabAll">All</button>
+      <button class="tab-btn" data-panel="moviesPanel" id="tabMovies">Movies</button>
+      <button class="tab-btn" data-panel="tvPanel" id="tabTV">TV Shows</button>
+    </div>
+
+    <!-- Tab Panels -->
+    <div id="allResultsPanel" class="tab-panel">
+      <div class="content-grid" id="allResultsGrid"></div>
+    </div>
+    <div id="moviesPanel" class="tab-panel hidden">
+      <div class="content-grid" id="moviesGrid"></div>
+    </div>
+    <div id="tvPanel" class="tab-panel hidden">
+      <div class="content-grid" id="tvGrid"></div>
+    </div>
+
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 PrimeNet. Content data provided by <a href="https://www.themoviedb.org" target="_blank" rel="noopener" style="color:#888">TMDB</a>.</p>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="movies.html">Movies</a>
+        <a href="tv.html">TV Shows</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== MODAL ===== -->
+  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true">
+    <div class="modal">
+      <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+      <div class="modal-backdrop">
+        <img id="modalBackdropImg" src="" alt="">
+      </div>
+      <div class="modal-content">
+        <h2 class="modal-title" id="modalTitle"></h2>
+        <div class="modal-meta" id="modalMeta"></div>
+        <p class="modal-overview" id="modalOverview"></p>
+        <div class="modal-actions">
+          <button class="btn-primary" id="modalWatchBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Watch Now
+          </button>
+        </div>
+        <div class="modal-info-grid" id="modalInfoGrid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== BACK TO TOP ===== -->
+  <button class="back-to-top" aria-label="Back to top">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/search.js"></script>
+</body>
+</html>

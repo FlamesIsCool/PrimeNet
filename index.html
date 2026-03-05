@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="PrimeNet — Stream thousands of movies and TV shows. Free, fast, and always updated.">
+  <title>PrimeNet — Stream Movies & TV Shows</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎬</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="navbar-brand">
+      <span class="navbar-logo">Prime<span>Net</span></span>
+    </a>
+    <div class="navbar-nav">
+      <a href="index.html" class="nav-link active">Home</a>
+      <a href="movies.html" class="nav-link">Movies</a>
+      <a href="tv.html" class="nav-link">TV Shows</a>
+      <a href="search.html" class="nav-link">Search</a>
+    </div>
+    <div class="navbar-right">
+      <div class="search-container">
+        <button class="search-toggle" id="searchToggle" aria-label="Search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+        <div class="search-box" id="searchBox">
+          <input type="text" class="search-input" id="navSearchInput" placeholder="Search movies, shows..." autocomplete="off">
+          <button class="search-btn" id="navSearchBtn" aria-label="Search">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="hero">
+    <div class="hero-backdrop" id="heroBg"></div>
+    <div class="hero-content">
+      <div class="hero-badge" id="heroBadge">🎬 Movie</div>
+      <h1 class="hero-title" id="heroTitle">Loading…</h1>
+      <div class="hero-meta" id="heroMeta"></div>
+      <p class="hero-description" id="heroDesc">Discovering trending content for you…</p>
+      <div class="hero-actions">
+        <button class="btn-primary" id="heroWatchBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Watch Now
+        </button>
+        <button class="btn-secondary" id="heroDetailBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          More Info
+        </button>
+      </div>
+    </div>
+    <div class="hero-dots" id="heroDots"></div>
+  </section>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main-content">
+
+    <!-- Trending -->
+    <section class="content-section">
+      <div class="section-header">
+        <h2 class="section-title">
+          <span class="title-icon">🔥</span> Trending Now
+        </h2>
+        <a href="search.html?q=trending" class="section-link">View All <span class="arrow">›</span></a>
+      </div>
+      <div class="carousel-wrapper">
+        <div class="carousel-nav prev">
+          <button class="carousel-nav-btn" aria-label="Previous">‹</button>
+        </div>
+        <div class="carousel-track" id="trendingRow"></div>
+        <div class="carousel-nav next">
+          <button class="carousel-nav-btn" aria-label="Next">›</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Popular Movies -->
+    <section class="content-section">
+      <div class="section-header">
+        <h2 class="section-title">
+          <span class="title-icon">🎬</span> Popular Movies
+        </h2>
+        <a href="movies.html" class="section-link">Browse All <span class="arrow">›</span></a>
+      </div>
+      <div class="carousel-wrapper">
+        <div class="carousel-nav prev">
+          <button class="carousel-nav-btn" aria-label="Previous">‹</button>
+        </div>
+        <div class="carousel-track" id="popularMoviesRow"></div>
+        <div class="carousel-nav next">
+          <button class="carousel-nav-btn" aria-label="Next">›</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Top Rated -->
+    <section class="content-section">
+      <div class="section-header">
+        <h2 class="section-title">
+          <span class="title-icon">⭐</span> Top Rated Movies
+        </h2>
+        <a href="movies.html?sort=vote_average.desc" class="section-link">View All <span class="arrow">›</span></a>
+      </div>
+      <div class="carousel-wrapper">
+        <div class="carousel-nav prev">
+          <button class="carousel-nav-btn" aria-label="Previous">‹</button>
+        </div>
+        <div class="carousel-track" id="topRatedRow"></div>
+        <div class="carousel-nav next">
+          <button class="carousel-nav-btn" aria-label="Next">›</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Popular TV Shows -->
+    <section class="content-section">
+      <div class="section-header">
+        <h2 class="section-title">
+          <span class="title-icon">📺</span> Popular TV Shows
+        </h2>
+        <a href="tv.html" class="section-link">Browse All <span class="arrow">›</span></a>
+      </div>
+      <div class="carousel-wrapper">
+        <div class="carousel-nav prev">
+          <button class="carousel-nav-btn" aria-label="Previous">‹</button>
+        </div>
+        <div class="carousel-track" id="popularTVRow"></div>
+        <div class="carousel-nav next">
+          <button class="carousel-nav-btn" aria-label="Next">›</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Airing Today -->
+    <section class="content-section">
+      <div class="section-header">
+        <h2 class="section-title">
+          <span class="title-icon">📡</span> Airing Today
+        </h2>
+        <a href="tv.html" class="section-link">View All <span class="arrow">›</span></a>
+      </div>
+      <div class="carousel-wrapper">
+        <div class="carousel-nav prev">
+          <button class="carousel-nav-btn" aria-label="Previous">‹</button>
+        </div>
+        <div class="carousel-track" id="airingTodayRow"></div>
+        <div class="carousel-nav next">
+          <button class="carousel-nav-btn" aria-label="Next">›</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Upcoming Movies -->
+    <section class="content-section" style="margin-bottom: 60px;">
+      <div class="section-header">
+        <h2 class="section-title">
+          <span class="title-icon">🎞️</span> Coming Soon
+        </h2>
+        <a href="movies.html" class="section-link">View All <span class="arrow">›</span></a>
+      </div>
+      <div class="carousel-wrapper">
+        <div class="carousel-nav prev">
+          <button class="carousel-nav-btn" aria-label="Previous">‹</button>
+        </div>
+        <div class="carousel-track" id="upcomingRow"></div>
+        <div class="carousel-nav next">
+          <button class="carousel-nav-btn" aria-label="Next">›</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo">Prime<span>Net</span></div>
+        <p>Stream thousands of movies and TV shows in stunning quality. Powered by TMDB &amp; VidKing.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Browse</h4>
+        <ul>
+          <li><a href="movies.html">Movies</a></li>
+          <li><a href="tv.html">TV Shows</a></li>
+          <li><a href="search.html">Search</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Genres</h4>
+        <ul>
+          <li><a href="movies.html?genre=28">Action</a></li>
+          <li><a href="movies.html?genre=35">Comedy</a></li>
+          <li><a href="movies.html?genre=18">Drama</a></li>
+          <li><a href="movies.html?genre=27">Horror</a></li>
+          <li><a href="movies.html?genre=878">Sci-Fi</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Info</h4>
+        <ul>
+          <li><a href="#">About PrimeNet</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 PrimeNet. Content data provided by <a href="https://www.themoviedb.org" target="_blank" rel="noopener" style="color:#888">TMDB</a>.</p>
+      <div class="footer-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== MODAL ===== -->
+  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true">
+    <div class="modal">
+      <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+      <div class="modal-backdrop">
+        <img id="modalBackdropImg" src="" alt="">
+      </div>
+      <div class="modal-content">
+        <h2 class="modal-title" id="modalTitle"></h2>
+        <div class="modal-meta" id="modalMeta"></div>
+        <p class="modal-overview" id="modalOverview"></p>
+        <div class="modal-actions">
+          <button class="btn-primary" id="modalWatchBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Watch Now
+          </button>
+        </div>
+        <div class="modal-info-grid" id="modalInfoGrid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== BACK TO TOP ===== -->
+  <button class="back-to-top" aria-label="Back to top">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>
