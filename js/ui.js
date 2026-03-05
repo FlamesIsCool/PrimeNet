@@ -210,20 +210,59 @@ async function openModal(item) {
   const overview = details.overview || 'No description available.';
   const genres = (details.genres || []).map(g => g.name).join(', ');
   const backdropUrl = API.backdrop(details.backdrop_path, 'w1280');
+  const posterUrl = API.img(details.poster_path, 'w342');
   const runtime = type === 'movie' ? formatRuntime(details.runtime) : (details.episode_run_time?.[0] ? formatRuntime(details.episode_run_time[0]) : '');
 
-  document.getElementById('modalBackdropImg').src = backdropUrl || '';
+  // Hero backdrop
+  const heroImg = document.getElementById('modalBackdropImg');
+  if (heroImg) {
+    heroImg.src = backdropUrl || '';
+    heroImg.alt = escHtml(title);
+  }
+
+  // Poster
+  const posterImg = document.getElementById('modalPosterImg');
+  if (posterImg) {
+    if (posterUrl) {
+      posterImg.src = posterUrl;
+      posterImg.alt = escHtml(title);
+      posterImg.parentElement.style.display = '';
+    } else {
+      posterImg.parentElement.style.display = 'none';
+    }
+  }
+
+  // Badge
+  const badge = document.getElementById('modalBadge');
+  if (badge) badge.textContent = type === 'tv' ? '📺 TV Series' : '🎬 Movie';
+
   document.getElementById('modalTitle').textContent = title;
   document.getElementById('modalOverview').textContent = overview;
 
   const modalMeta = document.getElementById('modalMeta');
   modalMeta.innerHTML = `
     <span class="modal-rating"><span class="star">★</span> ${rating}</span>
+    <span class="modal-meta-sep">·</span>
     <span>${year}</span>
-    ${runtime ? `<span>${runtime}</span>` : ''}
-    ${genres ? `<span>${genres}</span>` : ''}
-    <span class="card-badge">${type === 'tv' ? 'TV Series' : 'Movie'}</span>
+    ${runtime ? `<span class="modal-meta-sep">·</span><span>${runtime}</span>` : ''}
+    ${genres ? `<span class="modal-meta-sep">·</span><span class="modal-genres">${escHtml(genres)}</span>` : ''}
   `;
+
+  // Trailer button
+  const trailerBtn = document.getElementById('modalTrailerBtn');
+  if (trailerBtn) {
+    const trailer = (details.videos?.results || []).find(
+      v => v.site === 'YouTube' && (v.type === 'Trailer' || v.type === 'Teaser')
+    );
+    if (trailer) {
+      trailerBtn.classList.remove('hidden');
+      trailerBtn.onclick = () => {
+        window.open(`https://www.youtube.com/watch?v=${trailer.key}`, '_blank', 'noopener');
+      };
+    } else {
+      trailerBtn.classList.add('hidden');
+    }
+  }
 
   const watchBtn = document.getElementById('modalWatchBtn');
   if (watchBtn) {
